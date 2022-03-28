@@ -3,7 +3,8 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws Exception {
         BombaCombustivel bomb = new BombaCombustivel(1, 0, 50, 5.50f);
-        int opc = 0;
+        int opc;
+        float aux;
         
         do{
             System.out.println("--> Bomba de Combustível <--\n");
@@ -20,12 +21,24 @@ public class App {
             switch(opc){
                 case 1:
                     System.out.print("\nQual valor deseja reabastecer: ");
-                    System.out.println("Total de litros: " + bomb.abastecerPorValor(scan.nextFloat()));
+                    aux = bomb.abastecerPorValor(scan.nextFloat());
+                    if(aux == -1){
+                        System.out.println("Não há combustível suficiente!");
+                    }
+                    else{
+                        System.out.printf("Total de litros: %.2fL\n", aux);
+                    }
                     break;
                 case 2:
-                    System.out.print("\nQual valor deseja reabastecer: ");
-                    System.out.printf("Valor total: R$ %.2f\n", bomb.abastecerPorLitros(scan.nextInt()));
-                    break;
+                    System.out.print("\nQuantos litros deseja reabastecer: ");
+                    aux = bomb.abastecerPorLitros(scan.nextFloat());
+                    if(aux == -1){
+                        System.out.println("Não há combustível suficiente!");
+                    }
+                    else{
+                        System.out.printf("Valor total: R$ %.2f\n", aux);
+                    }
+                    break; 
                 case 3:
                     System.out.print("\nInsira o novo preço: R$ ");
                     bomb.alterarPreco(scan.nextFloat());
@@ -33,7 +46,7 @@ public class App {
                     break;
                 case 4:
                     System.out.print("\nQuantidade de litros a ser reabastecida: ");
-                    bomb.alterarPreco(scan.nextInt());
+                    bomb.reabastecerTanque(scan.nextInt());
                     System.out.println("Tanque reabastecido com sucesso!");
                     break;
             }

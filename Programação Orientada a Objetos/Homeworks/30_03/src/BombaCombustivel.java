@@ -11,16 +11,26 @@ public class BombaCombustivel {
 
     public float abastecerPorValor(float valor){
         valor /= this.preco;
-        this.litrosCombustivel -= valor;
 
-        return valor;
+        if((this.litrosCombustivel - valor) < 0){
+            return -1;
+        }
+        else{
+            this.litrosCombustivel -= valor;
+            return valor;
+        }
     }
 
-    public float abastecerPorLitros(int qntLitros){
-        this.litrosCombustivel -= qntLitros;
-        qntLitros *= this.preco;
+    public float abastecerPorLitros(float qntLitros){
+        if((this.litrosCombustivel - qntLitros) < 0){
+            return -1;
+        }
+        else{
+            this.litrosCombustivel -= qntLitros;
+            qntLitros *= this.preco;
 
-        return qntLitros;
+            return qntLitros;
+        }
     }
 
     public void reabastecerTanque(int qntLitros){
