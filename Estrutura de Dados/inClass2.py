@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from random import randint
 import timeit
 
@@ -171,3 +172,5 @@ print("Bubble Sort: ", timeit.timeit('output = 10*5'), "seconds")
 sortList = randomList
 insertionSort(sortList)
 print("Insertion Sort: ", timeit.timeit('output = 10*5'), "seconds")
+=======
+>>>>>>> e53664af3bae374077b63e1601ca48a8c8670b2f
