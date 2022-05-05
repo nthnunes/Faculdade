@@ -17,11 +17,18 @@ create table telefone(
     constraint pk_departamento primary key (telefone, iddepartamento)
 ) engine innodb;
 
+create table grupo(
+    idgrupo int unsigned not null,
+    nome varchar(45) not null,
+    constraint pk_grupo primary key (idgrupo)
+) engine innodb;
+
 create table produto(
     iditem int unsigned not null,
     nome varchar(45) not null,
-    grupo varchar(45),
-    constraint pk_produto primary key (iditem)
+    idgrupo int unsigned not null,
+    constraint pk_produto primary key (iditem),
+    constraint fk_grupo_produto foreign key (idgrupo) references grupo(idgrupo)
 ) engine innodb;
 
 create table estoque(
@@ -60,17 +67,24 @@ insert into telefone(telefone, iddepartamento)
 values("3433-1720", 3);
 
 
-insert into produto(iditem, nome, grupo)
-values(1, "Detergente", "Limpeza");
+insert into grupo(idgrupo, nome)
+values(1, "Limpeza");
 
-insert into produto(iditem, nome, grupo)
-values(2, "Papel A4", "Escritório");
+insert into grupo(idgrupo, nome)
+values(2, "Escritório");
 
-insert into produto(iditem, nome, grupo)
-values(3, "Lápis", "Escritório");
 
-insert into produto(iditem, nome, grupo)
-values(4, "Sabão Líquido", "Limpeza");
+insert into produto(iditem, nome, idgrupo)
+values(1, "Detergente", 1);
+
+insert into produto(iditem, nome, idgrupo)
+values(2, "Papel A4", 2);
+
+insert into produto(iditem, nome, idgrupo)
+values(3, "Lápis", 2);
+
+insert into produto(iditem, nome, idgrupo)
+values(4, "Sabão Líquido", 1);
 
 
 insert into estoque(iddepartamento, iditem, cadastro, quantidade, valor)
@@ -99,6 +113,7 @@ values(3, 3, "2020-09-15", 30, 2.00);
 
 
 -- 4)
+use ex07;
 select produto.nome, sum(estoque.quantidade) from estoque
 join produto
 on (estoque.iditem = produto.iditem)
@@ -106,14 +121,12 @@ where estoque.iddepartamento = 1
 group by produto.nome;
 
 
--- 5)
-select departamento.nome, produto.nome, estoque.valor from departamento
-join estoque
-on (departamento.iddepartamento = estoque.iddepartamento)
+select departamento.nome as "departamento", produto.nome as "produto", estoque.valor from estoque
 join produto
 on (produto.iditem = estoque.iditem)
-where estoque.quantidade > 30 and estoque.quantidade < 1000
-group by departamento.iddepartamento,  produto.iditem;
+join departamento
+on (departamento.iddepartamento = estoque.iddepartamento)
+where estoque.quantidade > 30 and estoque.quantidade < 1000;
 
 
 -- 6)
@@ -125,9 +138,11 @@ group by produto.nome;
 
 
 -- 7)
-select produto.nome, produto.grupo from produto
+select produto.nome as "produto", grupo.nome as "grupo" from produto
 join estoque
 on (estoque.iditem = produto.iditem)
+join grupo
+on (grupo.idgrupo = produto.idgrupo)
 where datediff(curdate(), estoque.cadastro) > 180
 group by produto.nome;
 
