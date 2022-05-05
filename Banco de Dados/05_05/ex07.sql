@@ -1,3 +1,5 @@
+-- Alunos: Nathan Nunes e Ynuan Cruz
+
 -- 2)
 create database ex07;
 use ex07;
@@ -105,3 +107,39 @@ group by produto.nome;
 
 
 -- 5)
+select departamento.nome, produto.nome, estoque.valor from departamento
+join estoque
+on (departamento.iddepartamento = estoque.iddepartamento)
+join produto
+on (produto.iditem = estoque.iditem)
+where estoque.quantidade > 30 and estoque.quantidade < 1000
+group by departamento.iddepartamento,  produto.iditem;
+
+
+-- 6)
+select produto.nome, sum(estoque.quantidade) as "quantidade total",
+round(estoque.valor * estoque.quantidade) as "valor total" from estoque
+join produto
+on (produto.iditem = estoque.iditem)
+group by produto.nome;
+
+
+-- 7)
+select produto.nome, produto.grupo from produto
+join estoque
+on (estoque.iditem = produto.iditem)
+where datediff(curdate(), estoque.cadastro) > 180
+group by produto.nome;
+
+
+-- 8)
+update estoque
+join produto
+on (produto.iditem = estoque.iditem)
+set estoque.cadastro = curdate()
+where produto.grupo = "Limpeza";
+
+
+-- 9)
+delete from estoque
+where estoque.iddepartamento = 2;
