@@ -113,7 +113,6 @@ values(3, 3, "2020-09-15", 30, 2.00);
 
 
 -- 4)
-use ex07;
 select produto.nome, sum(estoque.quantidade) from estoque
 join produto
 on (estoque.iditem = produto.iditem)
