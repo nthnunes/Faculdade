@@ -121,6 +121,7 @@ where estoque.iddepartamento = 1
 group by produto.nome;
 
 
+-- 5)
 select departamento.nome as "departamento", produto.nome as "produto", estoque.valor from estoque
 join produto
 on (produto.iditem = estoque.iditem)
