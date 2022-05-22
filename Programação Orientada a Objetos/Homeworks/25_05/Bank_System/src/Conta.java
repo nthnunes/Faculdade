@@ -15,7 +15,6 @@ public class Conta {
         }
         else{
             this.saldo += valor;
-            System.out.println("Depósito efetuado com sucesso!");
         }
     }
 
