@@ -19,7 +19,7 @@ public class App {
             System.out.println("5 - Transferir");
             System.out.println("6 - Finalizar");
             System.out.printf("Opção: ");
-            opc = scan.nextInt();
+            opc = Integer.parseInt(scan.next());
 
             switch(opc){
                 case 1:
