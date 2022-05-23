@@ -25,7 +25,7 @@ public class App {
                 case 1:
                     System.out.println("\nTipo de conta:\n1 - Poupança\n2 - Corrente");
                     System.out.printf("Opção: ");
-                    int aux = scan.nextInt();
+                    int aux = Integer.parseInt(scan.next());
                     if(aux == 1){
                         temp = "Poupança";
                     }
@@ -40,6 +40,7 @@ public class App {
                     nome = scan.nextLine();
                     System.out.printf("CPF: ");
                     String cpf = scan.next();
+                    scan.next();
                     System.out.printf("Endereço: ");
                     String endereco = scan.nextLine();
                     System.out.printf("Telefone: ");
