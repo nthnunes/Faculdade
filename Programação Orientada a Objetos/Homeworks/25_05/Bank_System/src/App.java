@@ -7,9 +7,6 @@ public class App {
         int opc, cont = 1000;
         String nome, temp = null;
 
-        banco.Cadastrar(new Cliente("Nathan Nunes", "001.002.003-44", "Rua Lauro Mascarin", "43991931210",
-                    new Conta(1000, "Corrente", 100f)));
-
         do{
             System.out.println("Menu:");
             System.out.println("1 - Cadastrar Cliente/Conta");
