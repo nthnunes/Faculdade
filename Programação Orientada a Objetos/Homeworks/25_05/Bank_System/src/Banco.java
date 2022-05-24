@@ -43,9 +43,9 @@ public class Banco {
     public boolean Transferir(String origem, String destino, float valor){
         for(int i=0; i<listaClientes.size(); i++){
             if(origem.equals(listaClientes.get(i).getNome())){
-                for(i=0; i<listaClientes.size(); i++){
-                    if(destino.equals(listaClientes.get(i).getNome())){
-                        return listaClientes.get(i).getConta().Transferir(valor, listaClientes.get(i).getConta());
+                for(int j=0; j<listaClientes.size(); j++){
+                    if(destino.equals(listaClientes.get(j).getNome())){
+                        return listaClientes.get(i).getConta().Transferir(valor, listaClientes.get(j).getConta());
                     }
                 }
             }
