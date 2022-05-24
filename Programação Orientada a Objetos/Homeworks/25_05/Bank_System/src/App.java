@@ -8,7 +8,7 @@ public class App {
         String nome, temp = null;
 
         banco.Cadastrar(new Cliente("Nathan Nunes", "001.002.003-44", "Rua Lauro Mascarin", "43991931210",
-                    new Conta(001, "Corrente", 100f)));
+                    new Conta(1000, "Corrente", 100f)));
 
         do{
             System.out.println("Menu:");
@@ -23,24 +23,28 @@ public class App {
 
             switch(opc){
                 case 1:
-                    System.out.println("\nTipo de conta:\n1 - Poupança\n2 - Corrente");
-                    System.out.printf("Opção: ");
-                    int aux = Integer.parseInt(scan.next());
-                    if(aux == 1){
-                        temp = "Poupança";
+                    while(true){
+                        System.out.println("\nTipo de conta:\n1 - Poupança\n2 - Corrente");
+                        System.out.printf("Opção: ");
+                        int aux = Integer.parseInt(scan.next());
+                        if(aux == 1){
+                            temp = "Poupança";
+                            break;
+                        }
+                        else if(aux == 2){
+                            temp = "Corrente";
+                            break;
+                        }
+                        else{
+                            System.out.println("--> Valor inválido, tente novamente.");
+                        }
                     }
-                    else if(aux == 2){
-                        temp = "Corrente";
-                    }
-                    else{
-                        System.out.println("Valor inválido, tente novamente.");
-                        break;
-                    }
-                    System.out.printf("Nome: ");
+                    scan.nextLine();
+                    System.out.printf("\nNome: ");
                     nome = scan.nextLine();
                     System.out.printf("CPF: ");
                     String cpf = scan.next();
-                    scan.next();
+                    scan.nextLine();
                     System.out.printf("Endereço: ");
                     String endereco = scan.nextLine();
                     System.out.printf("Telefone: ");
@@ -52,39 +56,59 @@ public class App {
                         new Conta(cont+100, temp, saldo)));
                     break;
                 case 2:
+                    scan.nextLine();
                     System.out.printf("Qual nome que deseja encontrar: ");
-                    if(banco.Consultar(scan.nextLine()) == null){
-                        System.out.println("Cliente não encontrado.\n");
+                    temp = scan.nextLine();
+                    if(banco.Consultar(temp) == null){
+                        System.out.println("--> Cliente não encontrado.\n");
                         break;
                     }
-                    Cliente cliente = banco.Consultar(scan.nextLine());
+                    Cliente cliente = banco.Consultar(temp);
+                    System.out.println("\n--> Cliente encontrado!");
                     System.out.println("Nome: " + cliente.getNome());
                     System.out.println("CPF: " + cliente.getCpf());
                     System.out.println("Endereço: " + cliente.getEndereco());
-                    System.out.println("Telefone: " + cliente.getConta());
-                    System.out.println("Conta: " + cliente.getConta().getNumero());
+                    System.out.println("Telefone: " + cliente.getTelefone());
+                    System.out.println("Número da Conta: " + cliente.getConta().getNumero());
+                    System.out.println("Saldo: " + cliente.getConta().getSaldo());
+                    System.out.println("");
                     break;
                 case 3:
+                    scan.nextLine();
                     System.out.printf("Nome completo de quem receberá o depósito: ");
                     nome = scan.nextLine();
                     System.out.printf("Valor do depósito: ");
-                    banco.Depositar(nome, scan.nextFloat());
+                    if(banco.Depositar(nome, scan.nextFloat())){
+                        System.out.println("--> Depósito efetuado com sucesso!\n");
+                        break;
+                    }
+                    System.out.println("--> Cliente não encontrado.\n");
                     break;
                 case 4:
-                    System.out.printf("Seu nome completo: ");
+                    scan.nextLine();
+                    System.out.printf("Nome completo da conta de saque: ");
                     nome = scan.nextLine();
                     System.out.printf("Valor do saque: ");
-                    banco.Sacar(nome, scan.nextFloat());
+                    if(banco.Sacar(nome, scan.nextFloat())){
+                        System.out.println("--> Saque efetuado com sucesso!\n");
+                        break;
+                    }
+                    System.out.println("--> Não foi possível efetuar o saque.\n");
                     break;
                 case 5:
-                    System.out.printf("Seu nome completo: ");
+                    scan.nextLine();
+                    System.out.printf("Nome da conta a efetuar a transferência: ");
                     nome = scan.nextLine();
-                    System.out.printf("Nome de quem irá receber a transferência: ");
+                    System.out.printf("Nome de quem irá receber: ");
                     temp = scan.nextLine();
                     System.out.printf("Valor da transferência: ");
-                    banco.Transferir(nome, temp, scan.nextFloat());
+                    if(banco.Transferir(nome, temp, scan.nextFloat())){
+                        System.out.println("--> Transferência efetuada com sucesso!\n");
+                        break;
+                    }
+                    System.out.println("--> Não foi possível efetuar a transferência.\n");
                     break;
-                case default:
+                default:
                     if(opc == 6){
                         break;
                     }
