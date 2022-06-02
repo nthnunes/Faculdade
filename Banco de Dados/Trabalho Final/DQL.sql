@@ -14,9 +14,38 @@ where estados.id = 1;
 
 -- 3)
 use trabfinal;
-select avg(sum(municipios.populacao)) as "Média" from municipios
-where substring(municipios.municipio, 1, 5) = "Maria"
-group by municipios.id;
-
+select round(avg(municipios.populacao)) as "Média" from municipios
+where substring(municipios.municipio, 1, 5) = "Maria";
 
 -- 4)
+use trabfinal;
+select 
+
+-- 5)
+use trabfinal;
+select estados.estado, sum(municipios.populacao) from estados
+join municipios
+on (municipios.uf = estados.uf)
+where sum(municipios.populacao) > 10000
+order by sum(municipios.populacao);
+
+-- 7)
+use trabfinal;
+create index i_municipios_municipio
+on municipios(municipio);
+
+-- 8)
+use trabfinal;
+update estados
+set estados.estado = "Amapá"
+where estados.estado = "Amapa";
+
+-- 9)
+use trabfinal;
+alter table regioes
+add ativo int;
+
+-- 10)
+use trabfinal;
+insert into municipios(codigo, uf, municipio, populacao)
+values(202206, 'SP', 'Sistemas de Informação', 27);
