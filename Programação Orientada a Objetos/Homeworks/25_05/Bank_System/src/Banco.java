@@ -9,10 +9,11 @@ public class Banco {
 
     public void Cadastrar(Cliente c){
         this.listaClientes.add(c);
+        System.out.println("--> Cliente cadastrado com sucesso!\n");
     }
 
     public Cliente Consultar(String nome){
-        for(int i=0; i>listaClientes.size(); i++){
+        for(int i=0; i<listaClientes.size(); i++){
             if(nome.equals(listaClientes.get(i).getNome())){
                 return listaClientes.get(i);
             }
@@ -21,7 +22,7 @@ public class Banco {
     }
 
     public boolean Depositar(String nome, float valor){
-        for(int i=0; i>listaClientes.size(); i++){
+        for(int i=0; i<listaClientes.size(); i++){
             if(nome.equals(listaClientes.get(i).getNome())){
                 listaClientes.get(i).getConta().Depositar(valor);
                 return true;
@@ -31,7 +32,7 @@ public class Banco {
     }
 
     public boolean Sacar(String nome, float valor){
-        for(int i=0; i>listaClientes.size(); i++){
+        for(int i=0; i<listaClientes.size(); i++){
             if(nome.equals(listaClientes.get(i).getNome())){
                 return listaClientes.get(i).getConta().Sacar(valor);
             }
@@ -40,11 +41,11 @@ public class Banco {
     }
 
     public boolean Transferir(String origem, String destino, float valor){
-        for(int i=0; i>listaClientes.size(); i++){
+        for(int i=0; i<listaClientes.size(); i++){
             if(origem.equals(listaClientes.get(i).getNome())){
-                for(i=0; i>listaClientes.size(); i++){
-                    if(destino.equals(listaClientes.get(i).getNome())){
-                        return listaClientes.get(i).getConta().Transferir(valor, listaClientes.get(i).getConta());
+                for(int j=0; j<listaClientes.size(); j++){
+                    if(destino.equals(listaClientes.get(j).getNome())){
+                        return listaClientes.get(i).getConta().Transferir(valor, listaClientes.get(j).getConta());
                     }
                 }
             }
