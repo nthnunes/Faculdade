@@ -1,0 +1,12 @@
+vetor
+matrizes
+listas
+tuplas
+excessões e erros
+funções e parâmetros
+recursividade e bibliotecas
+classes e intância
+bubble sort, selection sort e insertion sort // implementação
+heap sort e quick sort (teoria) // o que é heap
+listas, pilhas, filas // implementação
+árvore e árvores binárias // teoria
