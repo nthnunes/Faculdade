@@ -19,15 +19,29 @@ where substring(municipios.municipio, 1, 5) = "Maria";
 
 -- 4)
 use trabfinal;
-select 
+select municipios.municipio, municipios.populacao from municipios
+where municipios.populacao = (
+    select min(municipios.populacao) from municipios
+    where municipios.uf = "AM");
 
 -- 5)
 use trabfinal;
 select estados.estado, sum(municipios.populacao) from estados
 join municipios
 on (municipios.uf = estados.uf)
-where sum(municipios.populacao) > 10000
-order by sum(municipios.populacao);
+group by estados.estado
+having sum(municipios.populacao) > 10000
+order by sum(municipios.populacao) desc;
+
+-- 6)
+use trabfinal;
+create view maiorespopulacoes as
+select estados.estado, sum(municipios.populacao) from estados
+join municipios
+on (municipios.uf = estados.uf)
+group by estados.estado
+having sum(municipios.populacao) > 10000
+order by sum(municipios.populacao) desc;
 
 -- 7)
 use trabfinal;
